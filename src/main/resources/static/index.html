@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<style>
+h1 { font-size: 150%; }
+#hidden_div {display: none; }
+#empresa_div {display: none; }
+#ciudad_div {display: none; }
+#persona_div {display: none; }
+
+</style>
+<h1>Registro a Insertar</h1>
+
+ 
+
+<select id="test" name="form_select" onchange="showDiv(this)">
+   <option value="0">Seleccione...</option>
+   <option value="1">Empresa</option>
+   <option value="2">Ciudad</option>
+   <option value="3">Persona</option>
+</select>
+
+
+<form action="/action_page.php" id="persona_div">
+  <br> holiiiii persona<br>
+</form>
+
+
+<form action="/action_page.php" id="empresa_div">
+  <br> holiiiii empresa<br>
+</form>
+
+
+<form action="/api-query/queries" method="post" target="_blank"  id="ciudad_div">
+  <h1> Entidad Ciudad</h1>
+  <label for="fname">Nombre:</label>
+  <input type="text" id="nName" name="nName" required><br><br>
+  <label for="lpais">Pais:</label>
+  <input type="text" id="paName" name="paName" required><br><br>
+  <label for="lPoblacion">Poblacion:</label>
+  <input type="text" id="poName" name="poName" required><br><br>
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Enviar</button>
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Confirmacion</h4>
+        </div>
+        <div class="modal-body">
+          <p>¿Esta seguro?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+          <button type="submit" class="btn btn-success">Si</button>
+
+ 
+
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</form>
+
+
+<script>
+function showDiv(element)
+{
+    if(element.value==1){
+        document.getElementById('empresa_div').style.display = 'block';
+        document.getElementById('ciudad_div').style.display = 'none';
+        document.getElementById('persona_div').style.display = 'none';
+        
+    }
+    else if(element.value==2){
+        document.getElementById('ciudad_div').style.display = 'block';
+        document.getElementById('empresa_div').style.display = 'none';
+        document.getElementById('persona_div').style.display = 'none';
+ 
+
+    }
+    else if(element.value==3){
+        document.getElementById('persona_div').style.display = 'block';
+        document.getElementById('ciudad_div').style.display = 'none';
+        document.getElementById('empresa_div').style.display = 'none';
+    }
+   else{
+        document.getElementById('ciudad_div').style.display = 'none';
+        document.getElementById('empresa_div').style.display = 'none';
+        document.getElementById('persona_div').style.display = 'none';
+   }
+    
+}
+
+
+</script>
+</body>
+</html>
