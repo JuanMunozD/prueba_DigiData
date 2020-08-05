@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.demo.controller;
 
 import com.demo.exceptions.CiudadNotFoundException;
@@ -26,7 +21,11 @@ public class CiudadController {
     @Autowired
     CiudadRepository ciudadRepository;
 
-// Get All Ciudad
+    /**
+     * Get all ciudades
+     * 
+     * @return 
+     */
     @GetMapping("/ciudades")
     public List<Ciudad> getAllNotes() {
         return ciudadRepository.findAll();
@@ -39,14 +38,14 @@ public class CiudadController {
         return ciudadRepository.save(ciudad);
     }
 
-// Get a Single Note
+// Get a Single Ciudad
     @GetMapping("/ciudades/{id}")
     public Ciudad getNoteById(@PathVariable(value = "id") Integer ciudadId) throws CiudadNotFoundException {
         return ciudadRepository.findById(ciudadId)
                 .orElseThrow(() -> new CiudadNotFoundException(ciudadId));
     }
 
-// Update a Note
+// Update a Ciudad
     @PutMapping("/ciudades/{id}")
     public Ciudad updateNote(@PathVariable(value = "id") Integer ciudadId,
             @Valid @RequestBody Ciudad ciudadDetails) throws CiudadNotFoundException {
@@ -63,7 +62,7 @@ public class CiudadController {
         return updateCiudad;
     }
 
-// Delete a Note
+// Delete a Ciudad
     @DeleteMapping("/ciudades/{id}")
     public ResponseEntity<?> deleteCity(@PathVariable(value = "id") Integer ciudadId) throws CiudadNotFoundException {
         Ciudad ciudad = ciudadRepository.findById(ciudadId)

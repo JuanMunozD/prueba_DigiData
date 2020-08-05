@@ -120,7 +120,6 @@ public class QueryController {
     public Query updateQuerie(@PathVariable(value = "id") Integer queryId,
             @Valid @RequestBody Query queryDetails) throws QueryNotFoundException {
 
-        System.out.println("******"+queryDetails);
         Query query = queryRepository.findById(queryId)
                 .orElseThrow(() -> new QueryNotFoundException(queryId));
         

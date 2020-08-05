@@ -1,199 +1,247 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 </head>
+
 <body>
-<style type="text/css">
-.tg  {border-collapse:collapse;border-spacing:0;}
-.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-  overflow:hidden;padding:10px 17px;word-break:normal;}
-.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-  font-weight:normal;overflow:hidden;padding:10px 17px;word-break:normal;}
-.tg .tg-7re6{background-color:#c0c0c0;border-color:inherit;color:#ffffff;font-size:16px;text-align:left;vertical-align:top}
-.tg .tg-1eu8{background-color:#c0c0c0;border-color:inherit;color:#ffffff;font-size:16px;text-align:center;vertical-align:top}
-</style>
-<table class="tg">
-
-         <thead>
-           <tr>
-    <th class="tg-1eu8">Id</th>
-    <th class="tg-1eu8">tipoDeSolicitud</th>
-    <th class="tg-7re6">Fecha</th>
-    <th class="tg-7re6">Opciones</th>
-
-           </tr>
-         </thead>
-         <tbody id="tprueba">
-         </tbody>
-</table>
-
-<script>
-
-var dataGlobal;
-
-function buscar(x){
-
-  alert( dataGlobal[x]["query"]);
-}
-
-function cambiarEstadoAprobado(x){
-
-  var id = parseInt(x) + 1;
-  var url = 'http://localhost:8080/api-query/queries/'+id;
-  var data = {estado: 'A'};
-
-  fetch(url, {
-    method: 'PUT', 
-    body: JSON.stringify(data), 
-    headers:{
-      'Content-Type': 'application/json'
+  <style type="text/css">
+    .tg {
+      border-collapse: collapse;
+      border-spacing: 0;
     }
-  }).then(res => res.json())
-  .catch(error => console.error('Error:', error))
-  .then(response => alert("Estado Cambiado Satisfactoriamente"));
 
-
-  if(dataGlobal[id-1]["query"].includes('CIUDAD')){
-    //sacar los datos de query "INSERT INTO CIUDAD(Nombre,Pais,Poblacion) VALUES (Holi,Bogota,64546)"
-    var cadena1 = dataGlobal[x]["query"];
-    var cadena2 = cadena1.slice(50, -1);
-    result=cadena2.match(/[^,]+/g);
-
-
-    // una vez ya tenemos los datos
-    var url = 'http://localhost:8080/api-ciudades/ciudades/';
-    var data = {nombre: result[0], pais:result[1],poblacion:result[2]};
-
-    fetch(url, {
-      method: 'POST', 
-      body: JSON.stringify(data), 
-      headers:{
-        'Content-Type': 'application/json'
-      }
-    }).then(res => res.json())
-    .catch(error => console.error('Error:', error))
-    .then(response => alert("Query Ciudad Aprobada"));
-
-  }
-
-
-  else if(dataGlobal[id-1]["query"].includes('EMPRESA')){
-    console.log("Entroempresa")
-    //sacar los datos de query "INSERT INTO EMPRESA(Nombre,Pais,CIudadDondeEjerce) VALUES (Holi,Bogota,64546)"
-    var cadena1 = dataGlobal[x]["query"];
-    var cadena2 = cadena1.slice(64, -1);
-    result=cadena2.match(/[^,]+/g);
-
-
-    // una vez ya tenemos los datos
-    var url = 'http://localhost:8080/api-empresa/empresas/';
-    var data = {nombre: result[0], direccion:result[1],ciudadDondeEjerce:result[2]};
-
-    fetch(url, {
-      method: 'POST', 
-      body: JSON.stringify(data), 
-      headers:{
-        'Content-Type': 'application/json'
-      }
-    }).then(res => res.json())
-    .catch(error => console.error('Error:', error))
-    .then(response => console.log('Success:', response));
-
-  }
-
-  else if(dataGlobal[id-1]["query"].includes('PERSONA')){
-    //sacar los datos de query "INSERT INTO PERSONA(Nombre,Apellidos,Sexo) VALUES (Holi,Bogota,64546)"
-    var cadena1 = dataGlobal[x]["query"];
-    var cadena2 = cadena1.slice(50, -1);
-    result=cadena2.match(/[^,]+/g);
-    console.log('lista' ,result);
-
-    // una vez ya tenemos los datos
-    var url = 'http://localhost:8080/api-persona/personas/';
-    var data = {nombre: result[0], apellidos:result[1], sexo:result[2]};
-
-    fetch(url, {
-      method: 'POST', 
-      body: JSON.stringify(data), 
-      headers:{
-        'Content-Type': 'application/json'
-      }
-    }).then(res => res.json())
-    .catch(error => console.error('Error:', error))
-    .then(response => console.log('Success:', response));
-
-  }
-  else{};
-}
-  
-
-
-  function cambiarEstadoRechazado(x){
-    var id = parseInt(x) + 1;
-    var url = 'http://localhost:8080/api-query/queries/' + id;
-    var data = { estado: 'R' };
-
-  fetch(url, {
-    method: 'PUT', 
-    body: JSON.stringify(data), 
-    headers:{
-      'Content-Type': 'application/json'
+    .tg td {
+      border-color: black;
+      border-style: solid;
+      border-width: 1px;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      overflow: hidden;
+      padding: 10px 17px;
+      word-break: normal;
     }
-  }).then(res => res.json())
-  .catch(error => console.error('Error:', error))
-  .then(response => console.log('Success:', "Estado de consulta: "+id+" Cambiado Satisfactoriamente"));
 
-  }
+    .tg th {
+      border-color: black;
+      border-style: solid;
+      border-width: 1px;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      font-weight: normal;
+      overflow: hidden;
+      padding: 10px 17px;
+      word-break: normal;
+    }
+
+    .tg .tg-7re6 {
+      background-color: #c0c0c0;
+      border-color: inherit;
+      color: #ffffff;
+      font-size: 16px;
+      text-align: left;
+      vertical-align: top
+    }
+
+    .tg .tg-1eu8 {
+      background-color: #c0c0c0;
+      border-color: inherit;
+      color: #ffffff;
+      font-size: 16px;
+      text-align: center;
+      vertical-align: top
+    }
+  </style>
+
+  <div>
+    <center>
+      <h1>Solicitudes Pendientes</h1>
+
+      <table class="tg">
+
+        <thead>
+          <tr>
+            <th class="tg-1eu8">Id</th>
+            <th class="tg-1eu8">tipoDeSolicitud</th>
+            <th class="tg-7re6">Fecha</th>
+            <th class="tg-7re6">Opciones</th>
+
+          </tr>
+        </thead>
+        <tbody id="tprueba">
+        </tbody>
+      </table>
+    </center>
+  </div>
+  <script>
+
+    var dataGlobal;
+
+    function buscar(x) {
+
+      alert(dataGlobal[x]["query"]);
+    }
+
+    function cambiarEstadoAprobado(x) {
+
+      var id = parseInt(x) + 1;
+      var url = 'http://localhost:8080/api-query/queries/' + id;
+      var data = { estado: 'A' };
+
+      fetch(url, {
+        method: 'PUT',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(res => res.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => alert("Estado Cambiado Satisfactoriamente"));
 
 
-function updateTable(data, values) {
- 
-  const tbody = document.getElementById("tprueba");
-  // clear existing data from tbody if it exists
-  tbody.innerHTML = "";
-  var p = "";
-  p += "<tr>";
+      if (dataGlobal[id - 1]["query"].includes('CIUDAD')) {
+        //sacar los datos de query "INSERT INTO CIUDAD(Nombre,Pais,Poblacion) VALUES (Holi,Bogota,64546)"
+        var cadena1 = dataGlobal[x]["query"];
+        var cadena2 = cadena1.slice(50, -1);
+        result = cadena2.match(/[^,]+/g);
 
-    for (var i = 0; i < data.length; i++) {
-      var query = String(data[i]["query"]);
+
+        // una vez ya tenemos los datos
+        var url = 'http://localhost:8080/api-ciudades/ciudades/';
+        var data = { nombre: result[0], pais: result[1], poblacion: result[2] };
+
+        fetch(url, {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }).then(res => res.json())
+          .catch(error => console.error('Error:', error))
+          .then(response => alert("Query Ciudad Aprobada"));
+
+      }
+
+
+      else if (dataGlobal[id - 1]["query"].includes('EMPRESA')) {
+        console.log("Entroempresa")
+        //sacar los datos de query "INSERT INTO EMPRESA(Nombre,Pais,CIudadDondeEjerce) VALUES (Holi,Bogota,64546)"
+        var cadena1 = dataGlobal[x]["query"];
+        var cadena2 = cadena1.slice(64, -1);
+        result = cadena2.match(/[^,]+/g);
+
+
+        // una vez ya tenemos los datos
+        var url = 'http://localhost:8080/api-empresa/empresas/';
+        var data = { nombre: result[0], direccion: result[1], ciudadDondeEjerce: result[2] };
+
+        fetch(url, {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }).then(res => res.json())
+          .catch(error => console.error('Error:', error))
+          .then(response => console.log('Success:', response));
+
+      }
+
+      else if (dataGlobal[id - 1]["query"].includes('PERSONA')) {
+        //sacar los datos de query "INSERT INTO PERSONA(Nombre,Apellidos,Sexo) VALUES (Holi,Bogota,64546)"
+        var cadena1 = dataGlobal[x]["query"];
+        var cadena2 = cadena1.slice(50, -1);
+        result = cadena2.match(/[^,]+/g);
+        console.log('lista', result);
+
+        // una vez ya tenemos los datos
+        var url = 'http://localhost:8080/api-persona/personas/';
+        var data = { nombre: result[0], apellidos: result[1], sexo: result[2] };
+
+        fetch(url, {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }).then(res => res.json())
+          .catch(error => console.error('Error:', error))
+          .then(response => console.log('Success:', response));
+
+      }
+      else { };
+    }
+
+
+
+    function cambiarEstadoRechazado(x) {
+      var id = parseInt(x) + 1;
+      var url = 'http://localhost:8080/api-query/queries/' + id;
+      var data = { estado: 'R' };
+
+      fetch(url, {
+        method: 'PUT',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(res => res.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => console.log('Success:', "Estado de consulta: " + id + " Cambiado Satisfactoriamente"));
+
+    }
+
+
+    function updateTable(data, values) {
+
+      const tbody = document.getElementById("tprueba");
+      // clear existing data from tbody if it exists
+      tbody.innerHTML = "";
+      var p = "";
+      p += "<tr>";
+
+      for (var i = 0; i < data.length; i++) {
+        var query = String(data[i]["query"]);
         values.forEach(value => {
-            if(value === "opciones"){
-                p += 
-                "<th>"
-                + "<br>"          
-                +'<button onclick=buscar("'+i+'")> <img src="img1.png" width ="40" height ="40"> </button>'
-                +'<button onclick=cambiarEstadoAprobado("'+i+'")> <img src="img2.png" width ="40" height ="40"> </button>'
-                +'<button onclick=cambiarEstadoRechazado("'+i+'")><img src="img3.png" width ="40" height ="40"> </button>'
-                + "</th>";
+          if (value === "opciones") {
+            p +=
+              "<th>"
+              + "<br>"
+              + '<button onclick=buscar("' + i + '")> <img src="img1.png" width ="40" height ="40"> </button>'
+              + '<button onclick=cambiarEstadoAprobado("' + i + '")> <img src="img2.png" width ="40" height ="40"> </button>'
+              + '<button onclick=cambiarEstadoRechazado("' + i + '")><img src="img3.png" width ="40" height ="40"> </button>'
+              + "</th>";
 
-            }else{
-              p += "<th>" + data[i][value] + "</th>";
-            }
-            
+          } else {
+            p += "<th>" + data[i][value] + "</th>";
+          }
+
         })
         p += "<tr>";
+      }
+
+      tbody.insertAdjacentHTML("afterend", p);
     }
 
-  tbody.insertAdjacentHTML("afterend", p);
-}
 
 
 
+    fetch("http://localhost:8080/api-query/queries", {
+      method: "GET",
 
-fetch("http://localhost:8080/api-query/queries", {
-  method: "GET",
+    }).then((res) => {
+      res
+        .json()
+        .then((data) => {
+          dataGlobal = data;
+          updateTable(data, ['id', 'tipoDeSolicitud', 'fecha', 'opciones']);
+        })
+        .catch((err) => {
+          console.log("ERROR: " + err);
+        })
+    });
 
-}).then((res) => {
-  res
-    .json()
-    .then((data) => {
-      dataGlobal = data;
-      updateTable(data, ['id', 'tipoDeSolicitud', 'fecha','opciones']);
-    })
-    .catch((err) => {
-      console.log("ERROR: " + err);
-})});
-
-</script>
+  </script>
 </body>
+
 </html>

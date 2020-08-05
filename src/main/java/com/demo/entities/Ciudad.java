@@ -22,6 +22,14 @@ public class Ciudad {
         super();
     }
 
+    /**
+     * contrustor de clase ciudad
+     * 
+     * @param id
+     * @param nombre
+     * @param pais
+     * @param poblacion 
+     */
     public Ciudad(int id, String nombre, String pais, String poblacion) {
         this.id = id;
         this.nombre = nombre;

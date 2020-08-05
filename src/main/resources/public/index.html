@@ -1,166 +1,210 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
+
 <body>
-<style>
-h1 { font-size: 150%; }
-#hidden_div {display: none; }
-#empresa_div {display: none; }
-#ciudad_div {display: none; }
-#persona_div {display: none; }
+  <style>
+    h1 {
+      font-size: 150%;
+      color:red;
+    }
 
-</style>
-<h1>Registro a Insertar</h1>
+    .reacro {
+      border-width: 5px;
+      border-style: solid;
+      border-color: black;
+      margin-top: 100px;
+      margin-bottom: 100px;
+      margin-right: 700px;
+      margin-left: 700px;
+    }
 
- 
+    .select {
+      width: auto;
+    }
 
-<select id="test" name="form_select" onchange="showDiv(this)">
-   <option value="0">Seleccione...</option>
-   <option value="1">Empresa</option>
-   <option value="2">Ciudad</option>
-   <option value="3">Persona</option>
-</select>
+    .centrar-form {
+      margin-top: 100px;
+      margin-bottom: 100px;
+      margin-right: 700px;
+      margin-left: 700px;
+    }
 
+    #hidden_div {
+      display: none;
 
-<form action="/api-query/queries-personas" method="post" target="_blank"  id="persona_div">
-  <h1> Entidad Persona</h1>
-  <label for="fname">Nombre:</label>
-  <input type="text" id="nName" name="nName" required><br><br>
-  <label for="lpais">Apellido:</label>
-  <input type="text" id="paName" name="paName" required><br><br>
-  <label for="lPoblacion">Sexo:</label>
-  <input type="text" id="poName" name="poName" required><br><br>
-  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal2">Enviar</button>
-  <div class="modal fade" id="myModal2" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Confirmacion</h4>
-        </div>
-        <div class="modal-body">
-          <p>¿Esta seguro?</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
-          <button type="submit" class="btn btn-success">Si</button>
+    }
 
- 
+    #empresa_div {
+      display: none;
+    }
 
-        </div>
+    #ciudad_div {
+      display: none;
+    }
+
+    #persona_div {
+      display: none;
+    }
+  </style>
+
+  <div>
+    <center>
+
+      <div class="reacro">
+        <h1>Registro a Insertar</h1>
+        <select class="form-control select" id="test" name="form_select" onchange="showDiv(this)">
+          <option value="0">Seleccione...</option>
+          <option value="1">Empresa</option>
+          <option value="2">Ciudad</option>
+          <option value="3">Persona</option>
+        </select>
       </div>
+
+      <div class="centrar-form reacro">
+      <form action="/api-query/queries-personas" method="post" target="_blank" id="persona_div">
+        <h1> Entidad Persona</h1>
+        <label for="fname">Nombre:</label>
+        <input type="text" id="nName" name="nName" required><br><br>
+        <label for="lpais">Apellido:</label>
+        <input type="text" id="paName" name="paName" required><br><br>
+        <label for="lPoblacion">Sexo:</label>
+        <input type="text" id="poName" name="poName" required><br><br>
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal2">Enviar</button>
+        <div class="modal fade" id="myModal2" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Confirmacion</h4>
+              </div>
+              <div class="modal-body">
+                <p>¿Esta seguro?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                <button type="submit" class="btn btn-success">Si</button>
+
+
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </form>
+
       
+
+
+      <form action="/api-query/queries-empresas" method="post" target="_blank" id="empresa_div">
+        <h1> Entidad empresa</h1>
+        <label for="fname">Nombre:</label>
+        <input type="text" id="nName" name="nName" required><br><br>
+        <label for="lpais">Direccion:</label>
+        <input type="text" id="paName" name="paName" required><br><br>
+        <label for="lPoblacion">Ciudad Donde Ejerce:</label>
+        <input type="text" id="poName" name="poName" required><br><br>
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal3">Enviar</button>
+        <div class="modal fade" id="myModal3" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Confirmacion</h4>
+              </div>
+              <div class="modal-body">
+                <p>¿Esta seguro?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                <button type="submit" class="btn btn-success">Si</button>
+
+
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </form>
+
+
+      <form action="/api-query/queries-ciudades" method="post" target="_blank" id="ciudad_div">
+        <h1> Entidad Ciudad</h1>
+        <label for="fname">Nombre:</label>
+        <input type="text" id="nName" name="nName" required><br><br>
+        <label for="lpais">Pais:</label>
+        <input type="text" id="paName" name="paName" required><br><br>
+        <label for="lPoblacion">Poblacion:</label>
+        <input type="text" id="poName" name="poName" required><br><br>
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Enviar</button>
+        <div class="modal fade" id="myModal" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Confirmacion</h4>
+              </div>
+              <div class="modal-body">
+                <p>¿Esta seguro?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                <button type="submit" class="btn btn-success">Si</button>
+
+
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </form>
     </div>
+    </center>
   </div>
-</form>
-
-
-<form action="/api-query/queries-empresas" method="post" target="_blank"  id="empresa_div">
-  <h1> Entidad empresa</h1>
-  <label for="fname">Nombre:</label>
-  <input type="text" id="nName" name="nName" required><br><br>
-  <label for="lpais">Direccion:</label>
-  <input type="text" id="paName" name="paName" required><br><br>
-  <label for="lPoblacion">CiudadDondeEjerce:</label>
-  <input type="text" id="poName" name="poName" required><br><br>
-  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal3">Enviar</button>
-  <div class="modal fade" id="myModal3" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Confirmacion</h4>
-        </div>
-        <div class="modal-body">
-          <p>¿Esta seguro?</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
-          <button type="submit" class="btn btn-success">Si</button>
-
- 
-
-        </div>
-      </div>
-      
-    </div>
-  </div>
-</form>
-
-
-<form action="/api-query/queries-ciudades" method="post" target="_blank"  id="ciudad_div">
-  <h1> Entidad Ciudad</h1>
-  <label for="fname">Nombre:</label>
-  <input type="text" id="nName" name="nName" required><br><br>
-  <label for="lpais">Pais:</label>
-  <input type="text" id="paName" name="paName" required><br><br>
-  <label for="lPoblacion">Poblacion:</label>
-  <input type="text" id="poName" name="poName" required><br><br>
-  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Enviar</button>
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Confirmacion</h4>
-        </div>
-        <div class="modal-body">
-          <p>¿Esta seguro?</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
-          <button type="submit" class="btn btn-success">Si</button>
-
- 
-
-        </div>
-      </div>
-      
-    </div>
-  </div>
-</form>
-
-
-<script>
-function showDiv(element)
-{
-    if(element.value==1){
+  <script>
+    function showDiv(element) {
+      if (element.value == 1) {
         document.getElementById('empresa_div').style.display = 'block';
         document.getElementById('ciudad_div').style.display = 'none';
         document.getElementById('persona_div').style.display = 'none';
-        
-    }
-    else if(element.value==2){
+
+      }
+      else if (element.value == 2) {
         document.getElementById('ciudad_div').style.display = 'block';
         document.getElementById('empresa_div').style.display = 'none';
         document.getElementById('persona_div').style.display = 'none';
- 
 
-    }
-    else if(element.value==3){
+
+      }
+      else if (element.value == 3) {
         document.getElementById('persona_div').style.display = 'block';
         document.getElementById('ciudad_div').style.display = 'none';
         document.getElementById('empresa_div').style.display = 'none';
-    }
-   else{
+      }
+      else {
         document.getElementById('ciudad_div').style.display = 'none';
         document.getElementById('empresa_div').style.display = 'none';
         document.getElementById('persona_div').style.display = 'none';
-   }
-    
-}
+      }
+
+    }
 
 
-</script>
+  </script>
 </body>
+
 </html>
