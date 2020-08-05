@@ -54,10 +54,9 @@ function cambiarEstadoAprobado(x){
 
 
   if(dataGlobal[id-1]["query"].includes('CIUDAD')){
-    console.log("entro ciudad")
-    //sacar los datos de query "INSERT INTO CIUDAD(Nombre,Pais,Poblacio) VALUES (Holi,Bogota,64546)"
+    //sacar los datos de query "INSERT INTO CIUDAD(Nombre,Pais,Poblacion) VALUES (Holi,Bogota,64546)"
     var cadena1 = dataGlobal[x]["query"];
-    var cadena2 = cadena1.slice(49, -1);
+    var cadena2 = cadena1.slice(50, -1);
     result=cadena2.match(/[^,]+/g);
 
 
@@ -77,19 +76,18 @@ function cambiarEstadoAprobado(x){
 
   }
 
-}
 
-  /**if(dataGlobal[x]["query"].includes('empresa')){
-    console.log("entro ciudad")
-    //sacar los datos de query "INSERT INTO EMPRESA(Nombre,Pais,Poblacio) VALUES (Holi,Bogota,64546)"
+  else if(dataGlobal[id-1]["query"].includes('EMPRESA')){
+    console.log("Entroempresa")
+    //sacar los datos de query "INSERT INTO EMPRESA(Nombre,Pais,CIudadDondeEjerce) VALUES (Holi,Bogota,64546)"
     var cadena1 = dataGlobal[x]["query"];
-    var cadena2 = cadena1.slice(51, -1);
+    var cadena2 = cadena1.slice(64, -1);
     result=cadena2.match(/[^,]+/g);
 
 
     // una vez ya tenemos los datos
     var url = 'http://localhost:8080/api-empresa/empresas/';
-    var data = {nombre: result[0], Direccion:result[1],CiudadDondeEjerce:result[2]};
+    var data = {nombre: result[0], direccion:result[1],ciudadDondeEjerce:result[2]};
 
     fetch(url, {
       method: 'POST', 
@@ -103,17 +101,16 @@ function cambiarEstadoAprobado(x){
 
   }
 
-  /**if(dataGlobal[x]["query"].includes('persona')){
-    console.log("entro ciudad")
-    //sacar los datos de query "INSERT INTO PERSONA(Nombre,Pais,Poblacio) VALUES (Holi,Bogota,64546)"
+  else if(dataGlobal[id-1]["query"].includes('PERSONA')){
+    //sacar los datos de query "INSERT INTO PERSONA(Nombre,Apellidos,Sexo) VALUES (Holi,Bogota,64546)"
     var cadena1 = dataGlobal[x]["query"];
     var cadena2 = cadena1.slice(50, -1);
     result=cadena2.match(/[^,]+/g);
-
+    console.log('lista' ,result);
 
     // una vez ya tenemos los datos
     var url = 'http://localhost:8080/api-persona/personas/';
-    var data = {nombre: result[0], Apellidos:result[1],Sexo:result[2]};
+    var data = {nombre: result[0], apellidos:result[1], sexo:result[2]};
 
     fetch(url, {
       method: 'POST', 
@@ -126,20 +123,15 @@ function cambiarEstadoAprobado(x){
     .then(response => console.log('Success:', response));
 
   }
-
-
-
-
-
-
-
-
-  */
+  else{};
+}
+  
 
 
   function cambiarEstadoRechazado(x){
-  var url = 'http://localhost:8080/api-query/queries/'+x+1;
-  var data = {estado: 'R'};
+    var id = parseInt(x) + 1;
+    var url = 'http://localhost:8080/api-query/queries/' + id;
+    var data = { estado: 'R' };
 
   fetch(url, {
     method: 'PUT', 
@@ -150,6 +142,16 @@ function cambiarEstadoAprobado(x){
   }).then(res => res.json())
   .catch(error => console.error('Error:', error))
   .then(response => console.log('Success:', response));
+
+  fetch(url, {
+    method: 'DELETE', 
+    body: JSON.stringify(data), 
+    headers:{
+      'Content-Type': 'application/json'
+    }
+  }).then(res => res.json())
+  .catch(error => console.error('Error:', error))
+  .then(response => alert("Estado de consulta: "+id+" Cambiado Satisfactoriamente"));
 
   }
 

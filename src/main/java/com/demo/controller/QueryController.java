@@ -92,7 +92,7 @@ public class QueryController {
         Date date = new Date(); 
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy"); 
         System.out.println(formatter.format(date));
-        String query2 = new String("INSERT INTO PERSONA(Nombre,Apellido,Sexo) VALUES ("+ nombrePersona +","+ nombreapellidos +","+ nombreSexo+ ")" );
+        String query2 = new String("INSERT INTO PERSONA(Nombre,Apellidos,Sexo) VALUES ("+ nombrePersona +","+ nombreapellidos +","+ nombreSexo+ ")" );
         query.setEstado(estado);
         query.setOpciones(null);
         query.setFecha(date);        
