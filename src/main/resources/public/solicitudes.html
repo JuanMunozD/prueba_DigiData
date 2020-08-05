@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 17px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 17px;word-break:normal;}
+.tg .tg-7re6{background-color:#c0c0c0;border-color:inherit;color:#ffffff;font-size:16px;text-align:left;vertical-align:top}
+.tg .tg-1eu8{background-color:#c0c0c0;border-color:inherit;color:#ffffff;font-size:16px;text-align:center;vertical-align:top}
+</style>
+<table class="tg">
+
+         <thead>
+           <tr>
+    <th class="tg-1eu8">Id</th>
+    <th class="tg-1eu8">tipoDeSolicitud</th>
+    <th class="tg-7re6">Fecha</th>
+    <th class="tg-7re6">Opciones</th>
+    <th class="tg-1eu8">Query</th>
+    <th class="tg-1eu8">estado</th>
+           </tr>
+         </thead>
+         <tbody id="tprueba">
+         </tbody>
+</table>
+
+<script>
+
+
+function updateTable(data, values) {
+	console.log("datos xd: ", data);
+    console.log("prueba xd: ", data[0]["id"]);
+  const tbody = document.getElementById("tprueba");
+  // clear existing data from tbody if it exists
+  tbody.innerHTML = "";
+  var p = "";
+  p += "<tr>";
+
+    for (var i = 0; i < data.length; i++) {
+        values.forEach(value => {
+            p += "<th>" + data[i][value] + "</th>";
+        })
+        p += "<tr>";
+    }
+
+  tbody.insertAdjacentHTML("afterend", p);
+}
+
+
+
+
+fetch("http://localhost:8080/api-query/queries", {
+  method: "GET",
+
+}).then((res) => {
+  res
+    .json()
+    .then((data) => {
+      updateTable(data, ['id', 'tipoDeSolicitud', 'fecha','opciones','query','estado']);
+    })
+    .catch((err) => {
+      console.log("ERROR: " + err);
+})});
+
+</script>
+</body>
+</html>

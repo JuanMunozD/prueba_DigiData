@@ -2,7 +2,7 @@ package com.demo.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import java.sql.Date;
+import java.util.Date;
 @Entity
 @Table(name = "query")
 public class Query {
@@ -85,6 +85,14 @@ public class Query {
     @Override
     public String toString() {
         return "Query{" + "id=" + id + ", tipoDeSolicitud=" + tipoDeSolicitud + ", fecha=" + fecha + ", opciones=" + opciones + ", estado=" + estado + ", query=" + query + '}';
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
     

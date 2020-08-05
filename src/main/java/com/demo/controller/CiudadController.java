@@ -18,6 +18,7 @@ import java.util.List;
  *
  * @author Juan Sebastian
  */
+@CrossOrigin //habilitar CORS navegadores
 @RestController
 @RequestMapping("/api-ciudades")
 public class CiudadController {

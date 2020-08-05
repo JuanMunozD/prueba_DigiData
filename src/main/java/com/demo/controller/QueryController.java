@@ -8,6 +8,7 @@ package com.demo.controller;
 import com.demo.exceptions.QueryNotFoundException;
 import com.demo.entities.Query;
 import com.demo.repository.QueryRepository;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +16,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import javax.validation.Valid;
 import java.util.List;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
  * @author Juan Sebastian
  */
+@CrossOrigin //habilitar CORS navegadores
 @RestController
 @RequestMapping("/api-query")
 public class QueryController {
@@ -35,7 +38,7 @@ public class QueryController {
 
 // Create a new Query of Ciry
     @PostMapping("/queries")
-    public Query createQuerie(@RequestParam(name = "nName") String nombreCiudad, @RequestParam(name = "paName") String nombrePais, @RequestParam(name = "poName") String totalPoblacion) {
+    public String createQuerie(@RequestParam(name = "nName") String nombreCiudad, @RequestParam(name = "paName") String nombrePais, @RequestParam(name = "poName" ) String totalPoblacion, HttpServletResponse httpResponse) throws IOException {
         System.out.println(nombreCiudad);
         System.out.println(nombrePais);
         System.out.println(totalPoblacion);
@@ -48,10 +51,17 @@ public class QueryController {
         System.out.println(formatter.format(date));
         String query2 = new String("INSERT INTO CIUDAD(Nombre,Pais,Poblacio) VALUES ("+ nombreCiudad +","+ nombrePais +","+ totalPoblacion+ ")" );
         query.setEstado(estado);
+        query.setFecha(date);
         query.setOpciones("Buscar");
         query.setTipoDeSolicitud(tipo_de_solicitud);
         query.setQuery(query2);
-        return queryRepository.save(query);
+        
+        // salvar en base de datos
+        queryRepository.save(query);
+        
+        httpResponse.sendRedirect("/solicitudes.html");
+        
+        return "<h1>success: </h1>";
     }
 
 /** Create a new Query of Empresa
