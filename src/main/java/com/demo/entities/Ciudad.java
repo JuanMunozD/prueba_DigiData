@@ -9,6 +9,7 @@ public class Ciudad {
 
     @Id
     @Null
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @NotNull
     private String nombre;

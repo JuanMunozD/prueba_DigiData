@@ -9,6 +9,7 @@ public class Persona {
 
     @Id
     @Null
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer cedula;
     @NotNull
     private String Nombre;

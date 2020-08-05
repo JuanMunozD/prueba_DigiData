@@ -50,7 +50,7 @@ function cambiarEstadoAprobado(x){
     }
   }).then(res => res.json())
   .catch(error => console.error('Error:', error))
-  .then(response => alert("Estado de consulta: "+id+" Cambiado Satisfactoriamente"));
+  .then(response => alert("Estado Cambiado Satisfactoriamente"));
 
 
   if(dataGlobal[id-1]["query"].includes('CIUDAD')){
@@ -72,7 +72,7 @@ function cambiarEstadoAprobado(x){
       }
     }).then(res => res.json())
     .catch(error => console.error('Error:', error))
-    .then(response => console.log('Success:', response));
+    .then(response => alert("Query Ciudad Aprobada"));
 
   }
 
@@ -141,17 +141,7 @@ function cambiarEstadoAprobado(x){
     }
   }).then(res => res.json())
   .catch(error => console.error('Error:', error))
-  .then(response => console.log('Success:', response));
-
-  fetch(url, {
-    method: 'DELETE', 
-    body: JSON.stringify(data), 
-    headers:{
-      'Content-Type': 'application/json'
-    }
-  }).then(res => res.json())
-  .catch(error => console.error('Error:', error))
-  .then(response => alert("Estado de consulta: "+id+" Cambiado Satisfactoriamente"));
+  .then(response => console.log('Success:', "Estado de consulta: "+id+" Cambiado Satisfactoriamente"));
 
   }
 
@@ -168,9 +158,8 @@ function updateTable(data, values) {
       var query = String(data[i]["query"]);
         values.forEach(value => {
             if(value === "opciones"){
-                console.log("entro fecha")
                 p += 
-                "<th>" + data[i][value] 
+                "<th>"
                 + "<br>"          
                 +'<button onclick=buscar("'+i+'")> <img src="img1.png" width ="40" height ="40"> </button>'
                 +'<button onclick=cambiarEstadoAprobado("'+i+'")> <img src="img2.png" width ="40" height ="40"> </button>'
