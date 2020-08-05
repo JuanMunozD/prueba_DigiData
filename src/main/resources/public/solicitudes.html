@@ -20,8 +20,7 @@
     <th class="tg-1eu8">tipoDeSolicitud</th>
     <th class="tg-7re6">Fecha</th>
     <th class="tg-7re6">Opciones</th>
-    <th class="tg-1eu8">Query</th>
-    <th class="tg-1eu8">estado</th>
+
            </tr>
          </thead>
          <tbody id="tprueba">
@@ -82,7 +81,7 @@ fetch("http://localhost:8080/api-query/queries", {
     .json()
     .then((data) => {
       dataGlobal = data;
-      updateTable(data, ['id', 'tipoDeSolicitud', 'fecha','opciones','query','estado']);
+      updateTable(data, ['id', 'tipoDeSolicitud', 'fecha','opciones']);
     })
     .catch((err) => {
       console.log("ERROR: " + err);

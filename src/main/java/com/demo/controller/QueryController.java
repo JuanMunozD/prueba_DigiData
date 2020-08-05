@@ -37,8 +37,8 @@ public class QueryController {
     }
 
 // Create a new Query of Ciry
-    @PostMapping("/queries")
-    public String createQuerie(@RequestParam(name = "nName") String nombreCiudad, @RequestParam(name = "paName") String nombrePais, @RequestParam(name = "poName" ) String totalPoblacion, HttpServletResponse httpResponse) throws IOException {
+    @PostMapping("/queries-ciudades")
+    public String createQuerieCiudad(@RequestParam(name = "nName") String nombreCiudad, @RequestParam(name = "paName") String nombrePais, @RequestParam(name = "poName" ) String totalPoblacion, HttpServletResponse httpResponse) throws IOException {
         System.out.println(nombreCiudad);
         System.out.println(nombrePais);
         System.out.println(totalPoblacion);
@@ -49,7 +49,7 @@ public class QueryController {
         Date date = new Date(); 
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy"); 
         System.out.println(formatter.format(date));
-        String query2 = new String("INSERT INTO CIUDAD(Nombre,Pais,Poblacio) VALUES ("+ nombreCiudad +","+ nombrePais +","+ totalPoblacion+ ")" );
+        String query2 = new String("INSERT INTO CIUDAD(Nombre,Pais,Poblacion) VALUES ("+ nombreCiudad +","+ nombrePais +","+ totalPoblacion+ ")" );
         query.setEstado(estado);
         query.setFecha(date);
         query.setOpciones("Buscar");
@@ -64,9 +64,9 @@ public class QueryController {
         return "<h1>success: </h1>";
     }
 
-/** Create a new Query of Empresa
+// Create a new Query of Empresa
     @PostMapping("/queries-empresas")
-    public Query createQuerieEmpresa(@RequestParam(name = "nName") String nombreEmpresa, @RequestParam(name = "paName") String nombreDireccion, @RequestParam(name = "poName") String ciudadDondeEjerce) {
+    public String createQuerieEmpresa(@RequestParam(name = "nName") String nombreEmpresa, @RequestParam(name = "paName") String nombreDireccion, @RequestParam(name = "poName") String ciudadDondeEjerce, HttpServletResponse httpResponse) throws IOException {
         System.out.println(nombreEmpresa);
         System.out.println(nombreDireccion);
         System.out.println(ciudadDondeEjerce);
@@ -77,17 +77,22 @@ public class QueryController {
         Date date = new Date(); 
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy"); 
         System.out.println(formatter.format(date));
-        String query2 = new String("INSERT INTO Empresa(Nombre,Pais,Poblacio) VALUES ("+ nombreEmpresa +","+ nombreDireccion +","+ ciudadDondeEjerce+ ")" );
+        String query2 = new String("INSERT INTO EMPRESA(Nombre,Direccion,ciudadDondeEjerce) VALUES ("+ nombreEmpresa +","+ nombreDireccion +","+ ciudadDondeEjerce+ ")" );
         query.setEstado(estado);
         query.setOpciones("Buscar");
         query.setTipoDeSolicitud(tipo_de_solicitud);
         query.setQuery(query2);
-        return queryRepository.save(query);
+        // salvar en base de datos
+        queryRepository.save(query);
+        
+        httpResponse.sendRedirect("/solicitudes.html");
+        
+        return "<h1>success: </h1>";
     }
     
 // Create a new Query of Persona
     @PostMapping("/queries-personas")
-    public Query createQueriePersona(@RequestParam(name = "nName") String nombrePersona, @RequestParam(name = "paName") String nombreapellidos, @RequestParam(name = "poName") String nombreSexo) {
+    public String createQueriePersona(@RequestParam(name = "nName") String nombrePersona, @RequestParam(name = "paName") String nombreapellidos, @RequestParam(name = "poName") String nombreSexo, HttpServletResponse httpResponse) throws IOException {
         System.out.println(nombrePersona);
         System.out.println(nombreapellidos);
         System.out.println(nombreSexo);
@@ -98,15 +103,20 @@ public class QueryController {
         Date date = new Date(); 
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy"); 
         System.out.println(formatter.format(date));
-        String query2 = new String("INSERT INTO PERSONA(Nombre,Pais,Poblacio) VALUES ("+ nombrePersona +","+ nombreapellidos +","+ nombreSexo+ ")" );
+        String query2 = new String("INSERT INTO PERSONA(Nombre,Apellido,Sexo) VALUES ("+ nombrePersona +","+ nombreapellidos +","+ nombreSexo+ ")" );
         query.setEstado(estado);
         query.setOpciones("Buscar");
         query.setTipoDeSolicitud(tipo_de_solicitud);
         query.setQuery(query2);
-        return queryRepository.save(query);
+        // salvar en base de datos
+        queryRepository.save(query);
+        
+        httpResponse.sendRedirect("/solicitudes.html");
+        
+        return "<h1>success: </h1>";
     }
     
-    */
+ 
     
 // Get a Single Note
     @GetMapping("/queries/{id}")

@@ -26,17 +26,77 @@ h1 { font-size: 150%; }
 </select>
 
 
-<form action="/action_page.php" id="persona_div">
-  <br> holiiiii persona<br>
+<form action="/api-query/queries-personas" method="post" target="_blank"  id="persona_div">
+  <h1> Entidad Persona</h1>
+  <label for="fname">Nombre:</label>
+  <input type="text" id="nName" name="nName" required><br><br>
+  <label for="lpais">Pais:</label>
+  <input type="text" id="paName" name="paName" required><br><br>
+  <label for="lPoblacion">Poblacion:</label>
+  <input type="text" id="poName" name="poName" required><br><br>
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal2">Enviar</button>
+  <div class="modal fade" id="myModal2" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Confirmacion</h4>
+        </div>
+        <div class="modal-body">
+          <p>¿Esta seguro?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+          <button type="submit" class="btn btn-success">Si</button>
+
+ 
+
+        </div>
+      </div>
+      
+    </div>
+  </div>
 </form>
 
 
-<form action="/action_page.php" id="empresa_div">
-  <br> holiiiii empresa<br>
+<form action="/api-query/queries-empresas" method="post" target="_blank"  id="empresa_div">
+  <h1> Entidad empresa</h1>
+  <label for="fname">Nombre:</label>
+  <input type="text" id="nName" name="nName" required><br><br>
+  <label for="lpais">Direccion:</label>
+  <input type="text" id="paName" name="paName" required><br><br>
+  <label for="lPoblacion">CiudadDondeEjerece:</label>
+  <input type="text" id="poName" name="poName" required><br><br>
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal3">Enviar</button>
+  <div class="modal fade" id="myModal3" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Confirmacion</h4>
+        </div>
+        <div class="modal-body">
+          <p>¿Esta seguro?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+          <button type="submit" class="btn btn-success">Si</button>
+
+ 
+
+        </div>
+      </div>
+      
+    </div>
+  </div>
 </form>
 
 
-<form action="/api-query/queries" method="post" target="_blank"  id="ciudad_div">
+<form action="/api-query/queries-ciudades" method="post" target="_blank"  id="ciudad_div">
   <h1> Entidad Ciudad</h1>
   <label for="fname">Nombre:</label>
   <input type="text" id="nName" name="nName" required><br><br>
