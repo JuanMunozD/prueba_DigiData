@@ -30,10 +30,17 @@
 
 <script>
 
+var dataGlobal;
+
+function buscar(x){
+  console.log("dataGlobal:",dataGlobal);
+  alert( dataGlobal[x]["query"]);
+}
 
 function updateTable(data, values) {
+ 
 	console.log("datos xd: ", data);
-    console.log("prueba xd: ", data[0]["id"]);
+    console.log("prueba xd: ", data[0]["query"]);
   const tbody = document.getElementById("tprueba");
   // clear existing data from tbody if it exists
   tbody.innerHTML = "";
@@ -41,8 +48,22 @@ function updateTable(data, values) {
   p += "<tr>";
 
     for (var i = 0; i < data.length; i++) {
+      var query = String(data[i]["query"]);
         values.forEach(value => {
-            p += "<th>" + data[i][value] + "</th>";
+            if(value === "opciones"){
+                console.log("entro fecha")
+                p += 
+                "<th>" + data[i][value] 
+                + "<br>"          
+                +'<button onclick=buscar("'+i+'")> x </button>'
+                +"<button> y </button>"
+                +"<button> o </button>"
+                + "</th>";
+
+            }else{
+              p += "<th>" + data[i][value] + "</th>";
+            }
+            
         })
         p += "<tr>";
     }
@@ -60,6 +81,7 @@ fetch("http://localhost:8080/api-query/queries", {
   res
     .json()
     .then((data) => {
+      dataGlobal = data;
       updateTable(data, ['id', 'tipoDeSolicitud', 'fecha','opciones','query','estado']);
     })
     .catch((err) => {
