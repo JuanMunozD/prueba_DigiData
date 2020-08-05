@@ -32,14 +32,130 @@
 var dataGlobal;
 
 function buscar(x){
-  console.log("dataGlobal:",dataGlobal);
+
   alert( dataGlobal[x]["query"]);
 }
 
+function cambiarEstadoAprobado(x){
+
+  var id = parseInt(x) + 1;
+  var url = 'http://localhost:8080/api-query/queries/'+id;
+  var data = {estado: 'A'};
+
+  fetch(url, {
+    method: 'PUT', 
+    body: JSON.stringify(data), 
+    headers:{
+      'Content-Type': 'application/json'
+    }
+  }).then(res => res.json())
+  .catch(error => console.error('Error:', error))
+  .then(response => alert("Estado de consulta: "+id+" Cambiado Satisfactoriamente"));
+
+
+  if(dataGlobal[id-1]["query"].includes('CIUDAD')){
+    console.log("entro ciudad")
+    //sacar los datos de query "INSERT INTO CIUDAD(Nombre,Pais,Poblacio) VALUES (Holi,Bogota,64546)"
+    var cadena1 = dataGlobal[x]["query"];
+    var cadena2 = cadena1.slice(49, -1);
+    result=cadena2.match(/[^,]+/g);
+
+
+    // una vez ya tenemos los datos
+    var url = 'http://localhost:8080/api-ciudades/ciudades/';
+    var data = {nombre: result[0], pais:result[1],poblacion:result[2]};
+
+    fetch(url, {
+      method: 'POST', 
+      body: JSON.stringify(data), 
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    }).then(res => res.json())
+    .catch(error => console.error('Error:', error))
+    .then(response => console.log('Success:', response));
+
+  }
+
+}
+
+  /**if(dataGlobal[x]["query"].includes('empresa')){
+    console.log("entro ciudad")
+    //sacar los datos de query "INSERT INTO EMPRESA(Nombre,Pais,Poblacio) VALUES (Holi,Bogota,64546)"
+    var cadena1 = dataGlobal[x]["query"];
+    var cadena2 = cadena1.slice(51, -1);
+    result=cadena2.match(/[^,]+/g);
+
+
+    // una vez ya tenemos los datos
+    var url = 'http://localhost:8080/api-empresa/empresas/';
+    var data = {nombre: result[0], Direccion:result[1],CiudadDondeEjerce:result[2]};
+
+    fetch(url, {
+      method: 'POST', 
+      body: JSON.stringify(data), 
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    }).then(res => res.json())
+    .catch(error => console.error('Error:', error))
+    .then(response => console.log('Success:', response));
+
+  }
+
+  /**if(dataGlobal[x]["query"].includes('persona')){
+    console.log("entro ciudad")
+    //sacar los datos de query "INSERT INTO PERSONA(Nombre,Pais,Poblacio) VALUES (Holi,Bogota,64546)"
+    var cadena1 = dataGlobal[x]["query"];
+    var cadena2 = cadena1.slice(50, -1);
+    result=cadena2.match(/[^,]+/g);
+
+
+    // una vez ya tenemos los datos
+    var url = 'http://localhost:8080/api-persona/personas/';
+    var data = {nombre: result[0], Apellidos:result[1],Sexo:result[2]};
+
+    fetch(url, {
+      method: 'POST', 
+      body: JSON.stringify(data), 
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    }).then(res => res.json())
+    .catch(error => console.error('Error:', error))
+    .then(response => console.log('Success:', response));
+
+  }
+
+
+
+
+
+
+
+
+  */
+
+
+  function cambiarEstadoRechazado(x){
+  var url = 'http://localhost:8080/api-query/queries/'+x+1;
+  var data = {estado: 'R'};
+
+  fetch(url, {
+    method: 'PUT', 
+    body: JSON.stringify(data), 
+    headers:{
+      'Content-Type': 'application/json'
+    }
+  }).then(res => res.json())
+  .catch(error => console.error('Error:', error))
+  .then(response => console.log('Success:', response));
+
+  }
+
+
 function updateTable(data, values) {
  
-	console.log("datos xd: ", data);
-    console.log("prueba xd: ", data[0]["query"]);
   const tbody = document.getElementById("tprueba");
   // clear existing data from tbody if it exists
   tbody.innerHTML = "";
@@ -54,9 +170,9 @@ function updateTable(data, values) {
                 p += 
                 "<th>" + data[i][value] 
                 + "<br>"          
-                +'<button onclick=buscar("'+i+'")> x </button>'
-                +"<button> y </button>"
-                +"<button> o </button>"
+                +'<button onclick=buscar("'+i+'")> <img src="img1.png" width ="40" height ="40"> </button>'
+                +'<button onclick=cambiarEstadoAprobado("'+i+'")> <img src="img2.png" width ="40" height ="40"> </button>'
+                +'<button onclick=cambiarEstadoRechazado("'+i+'")><img src="img3.png" width ="40" height ="40"> </button>'
                 + "</th>";
 
             }else{
